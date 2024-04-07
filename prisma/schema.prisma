@@ -52,6 +52,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  room          Room[]
 }
 
 model VerificationToken {
@@ -61,3 +62,14 @@ model VerificationToken {
 
   @@unique([identifier, token])
 }
+
+model Room{
+  id        String      @id @default(cuid())
+  name String
+  description String
+  language String
+  githubRepo String
+  userId    String
+  user       User       @relation(fields: [userId],references: [id],onDelete: Cascade)
+}
+
